@@ -31,6 +31,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 ---
 transition: fade-out
+disabled: true
 ---
 
 # What is Slidev?
@@ -73,6 +74,7 @@ Here is another comment.
 ---
 transition: slide-up
 level: 2
+disabled: true
 ---
 
 # Navigation
@@ -100,6 +102,7 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 ---
 layout: two-cols
 layoutClass: gap-16
+disabled: true
 ---
 
 # Table of contents
@@ -119,6 +122,7 @@ The title will be inferred from your slide content, or you can override it with 
 ---
 layout: image-right
 image: https://cover.sli.dev
+disabled: true
 ---
 
 # Code
@@ -171,6 +175,7 @@ Notes can also sync with clicks
 
 ---
 level: 2
+disabled: true
 ---
 
 # Shiki Magic Move
@@ -244,6 +249,8 @@ const author = {
 ````
 
 ---
+disabled: true
+---
 
 # Components
 
@@ -287,6 +294,7 @@ Also, HTML elements are valid:
 
 ---
 class: px-20
+disabled: true
 ---
 
 # Themes
@@ -316,6 +324,8 @@ theme: seriph
 Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
 check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
 
+---
+disabled: true
 ---
 
 # Clicks Animations
@@ -378,6 +388,8 @@ also allows you to add
 
 </div>
 
+---
+disabled: true
 ---
 
 # Motions
@@ -459,6 +471,8 @@ const final = {
 </div>
 
 ---
+disabled: true
+---
 
 # $\LaTeX$
 
@@ -480,6 +494,8 @@ $$
 
 [Learn more](https://sli.dev/features/latex)
 
+---
+disabled: true
 ---
 
 # Diagrams
@@ -562,6 +578,7 @@ Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML D
 foo: bar
 dragPos:
   square: 691,32,167,_,-16
+disabled: true
 ---
 
 # Draggable Elements
@@ -606,8 +623,11 @@ Double-click on the draggable elements to edit their positions.
 ---
 src: ./pages/imported-slides.md
 hide: false
+disabled: true
 ---
 
+---
+disabled: true
 ---
 
 # Monaco Editor
@@ -637,6 +657,7 @@ console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-
 ---
 layout: center
 class: text-center
+disabled: true
 ---
 
 # Learn More

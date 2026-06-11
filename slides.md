@@ -16,18 +16,48 @@ transition: slide-left
 # enable Comark Syntax: https://comark.dev/syntax/markdown
 comark: true
 # duration of the presentation
-duration: 35min
+duration: 7min
 ---
 
 # OpenLayers in Web-Applikationen
 
 w3geo – schauen Sie uns in die Karten!
 
-<img src="./assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
+<img src="/assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
 
 <!--
 The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
 -->
+
+---
+layout: two-cols
+layoutClass: gap-10 items-center
+---
+
+# w3geo GmbH
+
+Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
+
+- Guter fachlicher Mix: Raumplanung, Geographie, Telematik
+- Open Source: Kernentwickler von OpenLayers und anderen Projekten
+- Jahrzehntelange Erfahrung mit Entwicklung von Web-Applikationen
+
+::right::
+
+<div class="flex justify-center mb-6">
+  <img src="/assets/w3geo-logo.png" alt="w3geo Logo" class="h-10 object-contain" />
+</div>
+
+<div class="grid grid-cols-2 gap-6">
+  <div class="text-center">
+    <img src="/assets/ahocevar.jpg" alt="Andreas Hocevar" class="h-36 w-36 object-cover rounded-xl mx-auto" />
+    <p class="mt-2 text-sm font-medium">Andreas Hocevar</p>
+  </div>
+  <div class="text-center">
+    <img src="/assets/rorthofer.jpg" alt="Robert Orthofer" class="h-36 w-36 object-cover rounded-xl mx-auto" />
+    <p class="mt-2 text-sm font-medium">Robert Orthofer</p>
+  </div>
+</div>
 
 ---
 transition: fade-out

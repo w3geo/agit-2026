@@ -60,6 +60,56 @@ Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
 </div>
 
 ---
+layout: center
+class: text-center
+---
+
+# Karten, Kontext, Bedienelemente
+
+<div class="mt-6 mx-auto" style="width: 80vw; height: 65vh;">
+  <MapCarousel
+    :interval="1000"
+    :images="[
+      'agraratlas-hangneigung',
+      'agraratlas-ortho',
+      'ama-ackerland',
+      'ama-gruenland-bio',
+      'austrianmap-oesterreich',
+      'austrianmap-wien',
+      'elab-kreisverkehr',
+      'elab-strasse',
+      'estrab-graz',
+      'estrab-ort',
+      'haltepunkt-tal',
+      'histmap-wien-sepia',
+      'histmap-wien-gruen',
+      'kataster-detail',
+      'mrtis-stroemung',
+      'waldatlas-funktionsflaechen',
+      'waldatlas-steinschlag',
+      'waldinventur-baumarten',
+      'ui-bodenform-info',
+      'ui-hangneigung-legende',
+      'ui-pv-dialog',
+      'ui-pv-popup',
+      'ui-steinschlag-info',
+      'ui-istmobil-tabelle',
+      'ui-mobile-gza',
+    ]"/>
+</div>
+
+---
+layout: center
+class: flex flex-col items-center gap-8 text-center
+---
+
+# Editieren, besser als im GIS
+
+<video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
+  <source src="/assets/gip-edit-trimmed.mp4" type="video/mp4" />
+</video>
+
+---
 transition: fade-out
 disabled: true
 ---

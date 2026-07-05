@@ -19,9 +19,9 @@ comark: true
 duration: 7min
 ---
 
-# OpenLayers in Web-Applikationen
+# Schauen Sie uns in die Karten!
 
-w3geo – schauen Sie uns in die Karten!
+OpenLayers in Web-Applikationen
 
 <img src="/assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
 
@@ -61,6 +61,17 @@ Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
 
 ---
 layout: center
+---
+
+# Das Web als Plattform
+
+* Keine Software- oder App-Installation notwendig
+* Bei Bedarf auch offline verfügbar
+* Vertraute Umgebung für Nutzer
+* Benutzeroberfläche für breiteres Publikum als bei Desktop-GIS
+
+---
+layout: center
 class: text-center
 ---
 
@@ -68,7 +79,7 @@ class: text-center
 
 <div class="mt-6 mx-auto" style="width: 80vw; height: 65vh;">
   <MapCarousel
-    :interval="1000"
+    :interval="2000"
     :images="[
       'agraratlas-hangneigung',
       'agraratlas-ortho',

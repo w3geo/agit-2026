@@ -121,6 +121,28 @@ class: flex flex-col items-center gap-8 text-center
 </video>
 
 ---
+layout: center
+class: text-center
+---
+
+# Danke für die Aufmerksamkeit
+
+<div class="flex justify-center gap-16 mt-8">
+  <div>
+    <p class="font-medium">Andreas Hocevar</p>
+    <a href="mailto:ahocevar@w3geo.at" class="flex items-center justify-center gap-1 mt-1 text-sm opacity-70 hover:opacity-100">
+      <span class="i-carbon:email" />ahocevar@w3geo.at
+    </a>
+  </div>
+  <div>
+    <p class="font-medium">Robert Orthofer</p>
+    <a href="mailto:rorthofer@w3geo.at" class="flex items-center justify-center gap-1 mt-1 text-sm opacity-70 hover:opacity-100">
+      <span class="i-carbon:email" />rorthofer@w3geo.at
+    </a>
+  </div>
+</div>
+
+---
 transition: fade-out
 disabled: true
 ---

@@ -142,6 +142,26 @@ class: text-center
   </div>
 </div>
 
+<div class="flex flex-col items-center gap-3 mt-12">
+  <a href="https://w3geo.at/" class="flex items-center justify-center gap-1 text-lg opacity-80 hover:opacity-100">
+    <span class="i-carbon:earth" />w3geo.at
+  </a>
+  <QRCode class="w-40" />
+</div>
+
+---
+layout: center
+class: text-center
+---
+
+# Workshop-Links und Unterlagen
+
+---
+
+# Hangneigung
+
+<DemoFrame src="/demos/gradient.html" title="Hangneigung" />
+
 ---
 transition: fade-out
 disabled: true

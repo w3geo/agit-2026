@@ -160,7 +160,7 @@ class: text-center
 
 # Hangneigung
 
-<DemoFrame src="/demos/gradient.html" title="Hangneigung" />
+<DemoFrame src="./demos/gradient.html" title="Hangneigung" />
 
 ---
 transition: fade-out

@@ -12,7 +12,24 @@ const props = defineProps({
   },
 })
 
-const maps = props.images.map(name => `/assets/maps/${name}.jpg`)
+// Let Vite bundle the images so they get correct, base-prefixed URLs both in
+// dev and in sub-path deployments (e.g. GitHub Pages under /agit-2026/). A
+// runtime-built string like `/assets/maps/x.jpg` is invisible to the bundler:
+// it wouldn't be emitted into the build and wouldn't get the base prefix.
+const urls = import.meta.glob<string>('../assets/maps/*.jpg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+})
+const byName: Record<string, string> = {}
+for (const [path, url] of Object.entries(urls)) {
+  const name = path.split('/').pop()!.replace(/\.jpg$/, '')
+  byName[name] = url
+}
+
+const maps = props.images
+  .map(name => byName[name])
+  .filter((url): url is string => Boolean(url))
 
 const index = ref(0)
 let timer: ReturnType<typeof setInterval> | undefined

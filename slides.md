@@ -61,17 +61,6 @@ Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
 
 ---
 layout: center
----
-
-# Das Web als Plattform
-
-* Keine Software- oder App-Installation notwendig
-* Bei Bedarf auch offline verfügbar
-* Vertraute Umgebung für Nutzer
-* Benutzeroberfläche für breiteres Publikum als bei Desktop-GIS
-
----
-layout: center
 class: text-center
 ---
 
@@ -79,32 +68,32 @@ class: text-center
 
 <div class="mt-6 mx-auto" style="height: 440px; aspect-ratio: 16 / 9;">
   <MapCarousel
-    :interval="3000"
+    :interval="2000"
     :images="[
-      'agraratlas-hangneigung',
-      'agraratlas-ortho',
-      'ama-ackerland',
-      'ama-gruenland-bio',
       'austrianmap-oesterreich',
       'austrianmap-wien',
+      'histmap-wien-sepia',
+      'histmap-wien-gruen',
+      'kataster-detail',
+      'mrtis-stroemung',
+      'agraratlas-hangneigung',
+      'agraratlas-ortho',
+      'ui-hangneigung-legende',
+      'ama-ackerland',
+      'ama-gruenland-bio',
       'elab-kreisverkehr',
       'elab-strasse',
       'estrab-graz',
       'estrab-ort',
       'haltepunkt-tal',
-      'histmap-wien-sepia',
-      'histmap-wien-gruen',
-      'kataster-detail',
-      'mrtis-stroemung',
+      'ui-istmobil-tabelle',
       'waldatlas-funktionsflaechen',
       'waldatlas-steinschlag',
+      'ui-steinschlag-info',
       'waldinventur-baumarten',
       'ui-bodenform-info',
-      'ui-hangneigung-legende',
       'ui-pv-dialog',
       'ui-pv-popup',
-      'ui-steinschlag-info',
-      'ui-istmobil-tabelle',
       'ui-mobile-gza',
     ]"/>
 </div>
@@ -154,7 +143,16 @@ class: flex flex-col items-center gap-8 text-center
   <source src="/assets/gza_2026.mp4" type="video/mp4" />
 </video>
 
+---
+layout: center
+---
 
+# Das Web als Plattform
+
+* Keine Software- oder App-Installation notwendig
+* Bei Bedarf auch offline verfügbar
+* Vertraute Umgebung für Nutzer
+* Benutzeroberfläche für breiteres Publikum als bei Desktop-GIS
 
 ---
 layout: center

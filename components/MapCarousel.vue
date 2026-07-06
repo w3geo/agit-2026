@@ -6,9 +6,10 @@ const props = defineProps({
     type: Number,
     default: 500,
   },
-  // Override the image set; defaults to the curated map showcase.
+  // The set of image basenames (without extension) to cycle through.
   images: {
     type: Array as () => string[],
+    required: true,
   },
 })
 
@@ -16,11 +17,14 @@ const props = defineProps({
 // dev and in sub-path deployments (e.g. GitHub Pages under /agit-2026/). A
 // runtime-built string like `/assets/maps/x.jpg` is invisible to the bundler:
 // it wouldn't be emitted into the build and wouldn't get the base prefix.
-const urls = import.meta.glob<string>('../assets/maps/*.jpg', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-})
+type GlobFn = <T>(
+  pattern: string,
+  options: { eager: true; query: string; import: string },
+) => Record<string, T>
+const urls = (import.meta as unknown as { glob: GlobFn }).glob<string>(
+  '../assets/maps/*.jpg',
+  { eager: true, query: '?url', import: 'default' },
+)
 const byName: Record<string, string> = {}
 for (const [path, url] of Object.entries(urls)) {
   const name = path.split('/').pop()!.replace(/\.jpg$/, '')
@@ -63,9 +67,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  background: #000;
+  background: transparent;
 }
 
 .map-carousel__img {
@@ -73,7 +75,8 @@ onUnmounted(() => {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 0.75rem;
 }
 
 .map-fade-enter-active,

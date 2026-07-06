@@ -77,9 +77,9 @@ class: text-center
 
 # Karten, Kontext, Bedienelemente
 
-<div class="mt-6 mx-auto" style="width: 80vw; height: 65vh;">
+<div class="mt-6 mx-auto" style="height: 440px; aspect-ratio: 16 / 9;">
   <MapCarousel
-    :interval="2000"
+    :interval="3000"
     :images="[
       'agraratlas-hangneigung',
       'agraratlas-ortho',
@@ -195,6 +195,10 @@ class: text-center
 ---
 
 # Hangneigung
+
+<a href="https://terrestris.github.io/fossgis2023/talks/2023-03-15-jansen-hocevar-openlayers-feature-frenzy.html#/spatial-analysis" target="_blank" class="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
+  <span class="i-carbon:launch" />OpenLayers Feature Frenzy · FOSSGIS 2023
+</a>
 
 <DemoFrame src="./demos/gradient.html" title="Hangneigung" />
 

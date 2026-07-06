@@ -120,6 +120,42 @@ class: flex flex-col items-center gap-8 text-center
   <source src="/assets/gip-edit-trimmed.mp4" type="video/mp4" />
 </video>
 
+
+---
+transition: fade-out
+disabled: true
+---
+
+---
+layout: center
+class: flex flex-col items-center gap-8 text-center
+---
+
+# Es ist nicht *nur* Eye Candy 🍬
+
+<video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
+  <source src="/assets/waldschaden_2026.mp4" type="video/mp4" />
+</video>
+
+
+---
+transition: fade-out
+disabled: true
+---
+
+---
+layout: center
+class: flex flex-col items-center gap-8 text-center
+---
+
+# Dem Nutzer zeigen, was er sehen will
+
+<video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
+  <source src="/assets/gza_2026.mp4" type="video/mp4" />
+</video>
+
+
+
 ---
 layout: center
 class: text-center

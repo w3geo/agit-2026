@@ -190,6 +190,15 @@ class: text-center
 
 # Workshop-Links und Unterlagen
 
+<div class="flex flex-col items-center gap-3 mt-8">
+  <a href="https://github.com/w3geo/agit-2026/tree/main/public/demos" target="_blank" class="flex items-center justify-center gap-2 text-lg opacity-80 hover:opacity-100">
+    <span class="i-carbon:logo-github" />Quellcode aller Beispiele · github.com/w3geo/agit-2026 (public/demos)
+  </a>
+  <a href="https://jsfiddle.net/" target="_blank" class="flex items-center justify-center gap-2 text-lg opacity-80 hover:opacity-100">
+    <span class="i-carbon:code" />Live-Coding zum Mitmachen · jsfiddle.net
+  </a>
+</div>
+
 ---
 
 # Zaunpfähle

@@ -229,6 +229,15 @@ class: text-center
 
 ---
 
+# Reichweite: Elektroauto (+ OSRM-Routing)
+  
+<DemoFrame 
+  src="./demos/low-battery-routing.html" 
+  title="Reichweite: Elektroauto (Routing)" 
+/>
+
+---
+
 # nDOM
 
 <div class="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">

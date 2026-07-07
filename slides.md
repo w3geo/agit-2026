@@ -202,6 +202,20 @@ class: text-center
 
 ---
 
+# nDOM
+
+<div class="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+  <a href="https://ahocevar.net/fossgis-2026/27" target="_blank" class="flex items-center gap-1 opacity-80 hover:opacity-100">
+    <span class="i-carbon:launch" />Fortgeschrittene Web-Map Techniken rund um OpenLayers · FOSSGIS 2026
+  </a>
+  <a href="https://waldatlas.at/map/136" target="_blank" class="flex items-center gap-1 opacity-80 hover:opacity-100">
+    <span class="i-carbon:launch" />Baumhöhenkarte · Waldatlas
+  </a>
+</div>
+<DemoFrame src="./demos/ndom.html" title="nDOM" />
+
+---
+
 # Hangneigung
 
 <a href="https://terrestris.github.io/fossgis2023/talks/2023-03-15-jansen-hocevar-openlayers-feature-frenzy.html#/spatial-analysis" target="_blank" class="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">

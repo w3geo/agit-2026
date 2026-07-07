@@ -137,7 +137,7 @@ layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
 
-# Dem Nutzer zeigen, was er sehen will
+# Den Nutzern zeigen, was sie sehen wollen
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/gza_2026.mp4" type="video/mp4" />

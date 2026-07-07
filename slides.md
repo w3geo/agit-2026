@@ -192,6 +192,16 @@ class: text-center
 
 ---
 
+# Zaunpfähle
+
+<!-- <a href="https://terrestris.github.io/fossgis2023/talks/2023-03-15-jansen-hocevar-openlayers-feature-frenzy.html#/spatial-analysis" target="_blank" class="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
+  <span class="i-carbon:launch" />OpenLayers Feature Frenzy · FOSSGIS 2023
+</a> -->
+
+<DemoFrame src="./demos/draw-fence.html" title="Zaunpfähle" />
+
+---
+
 # Hangneigung
 
 <a href="https://terrestris.github.io/fossgis2023/talks/2023-03-15-jansen-hocevar-openlayers-feature-frenzy.html#/spatial-analysis" target="_blank" class="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">

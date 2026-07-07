@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05 Chroma LineString</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+
+      #controls {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        position: fixed;
+        top: 0.75rem;
+        left: 3rem;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+    </style>
+    <link rel="stylesheet" href="https://esm.sh/ol/ol.css" />
+  </head>
+  <body>
+    <div id="controls">
+      <label for="max-colored-length">Max distance (m)</label>
+      <input
+        id="max-colored-length"
+        type="number"
+        min="1"
+        step="1"
+        value="10000"
+      />
+    </div>
+    <div id="map"></div>
+    <script type="module">
+      import Map from "https://esm.sh/ol/Map.js";
+      import View from "https://esm.sh/ol/View.js";
+      import TileLayer from "https://esm.sh/ol/layer/Tile.js";
+      import VectorLayer from "https://esm.sh/ol/layer/Vector.js";
+      import OSM from "https://esm.sh/ol/source/OSM.js";
+      import VectorSource from "https://esm.sh/ol/source/Vector.js";
+      import Draw from "https://esm.sh/ol/interaction/Draw.js";
+      import Point from "https://esm.sh/ol/geom/Point.js";
+      import { getLength, getDistance } from "https://esm.sh/ol/sphere.js";
+      import chroma from "https://esm.sh/chroma-js";
+      import Style from "https://esm.sh/ol/style/Style.js";
+      import Stroke from "https://esm.sh/ol/style/Stroke.js";
+      import Fill from "https://esm.sh/ol/style/Fill.js";
+      import CircleStyle from "https://esm.sh/ol/style/Circle.js";
+      import Text from "https://esm.sh/ol/style/Text.js";
+      import { fromLonLat, toLonLat } from "https://esm.sh/ol/proj.js";
+
+      const source = new VectorSource();
+      const maxColoredLengthInput =
+        document.getElementById("max-colored-length");
+
+      let map;
+      let maxColoredMeters = 10000;
+
+      const createColorScale = (maxDistance) => {
+        return (
+          chroma
+            .scale(["#22e514", "#8ee514", "#dee514", "#e5ad14", "#e51f14"])
+            //.scale('YlOrRd') // pre-defined color scale, yellow - orange - red
+            .domain([0, maxDistance * 0.5, maxDistance])
+            .mode("lab")
+        );
+      };
+
+      let colorScale = createColorScale(maxColoredMeters);
+
+      const getPathColor = (distanceMeters) => {
+        if (distanceMeters > maxColoredMeters) {
+          return "#000000";
+        }
+        return colorScale(distanceMeters).hex();
+      };
+
+      const getMilestoneConfig = () => {
+        return [
+          { distance: maxColoredMeters * 0.5, icon: "❗" },
+          { distance: maxColoredMeters * 0.8, icon: "‼️" },
+          { distance: maxColoredMeters, icon: "☠️" },
+        ];
+      };
+
+      const drawSegmentPart = (context, x1, y1, x2, y2, strokeStyle) => {
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.strokeStyle = strokeStyle;
+        context.stroke();
+      };
+
+      const lerp = (a, b, t) => a + (b - a) * t;
+
+      const drawDistanceSegment = (
+        context,
+        x1,
+        y1,
+        x2,
+        y2,
+        startMeters,
+        endMeters,
+      ) => {
+        const segmentMeters = endMeters - startMeters;
+        if (segmentMeters <= 0) {
+          return;
+        }
+
+        if (startMeters >= maxColoredMeters) {
+          drawSegmentPart(context, x1, y1, x2, y2, "#000000");
+          return;
+        }
+
+        if (endMeters > maxColoredMeters) {
+          const splitT = (maxColoredMeters - startMeters) / segmentMeters;
+          const splitX = lerp(x1, x2, splitT);
+          const splitY = lerp(y1, y2, splitT);
+
+          drawDistanceSegment(
+            context,
+            x1,
+            y1,
+            splitX,
+            splitY,
+            startMeters,
+            maxColoredMeters,
+          );
+          drawSegmentPart(context, splitX, splitY, x2, y2, "#000000");
+          return;
+        }
+
+        // Sample by real meters so colors are stable regardless of total line length.
+        const meterStep = 2;
+        for (let d = startMeters; d < endMeters; d += meterStep) {
+          const d0 = d;
+          const d1 = Math.min(d + meterStep, endMeters);
+          const t0 = (d0 - startMeters) / segmentMeters;
+          const t1 = (d1 - startMeters) / segmentMeters;
+          const sx = lerp(x1, x2, t0);
+          const sy = lerp(y1, y2, t0);
+          const ex = lerp(x1, x2, t1);
+          const ey = lerp(y1, y2, t1);
+          const gradient = context.createLinearGradient(sx, sy, ex, ey);
+
+          gradient.addColorStop(0, colorScale(d0).hex());
+          gradient.addColorStop(1, colorScale(d1).hex());
+          drawSegmentPart(context, sx, sy, ex, ey, gradient);
+        }
+      };
+
+      const getMilestoneStyles = (line) => {
+        const totalLength = getLength(line);
+        if (totalLength <= 0) {
+          return [];
+        }
+
+        return getMilestoneConfig()
+          .filter((milestone) => milestone.distance <= totalLength)
+          .map((milestone) => {
+            const coordinate = line.getCoordinateAt(
+              milestone.distance / totalLength,
+            );
+
+            return new Style({
+              zIndex: 20,
+              geometry: new Point(coordinate),
+              image: new CircleStyle({
+                radius: 12,
+                fill: new Fill({
+                  color: getPathColor(milestone.distance),
+                }),
+                stroke: new Stroke({
+                  color: "#1b1b1b",
+                  width: 1.5,
+                }),
+              }),
+              text: new Text({
+                text: milestone.icon,
+                font: "14px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif",
+                offsetY: 2,
+              }),
+            });
+          });
+      };
+
+      const customRenderer = (_pixelCoordinates, state) => {
+        if (!map) {
+          return;
+        }
+
+        // Draw interaction is hardcoded to LineString.
+        const featureGeometry = state.feature.getGeometry();
+
+        const geometryCoordinates = featureGeometry.getCoordinates();
+        if (
+          !Array.isArray(geometryCoordinates) ||
+          geometryCoordinates.length < 2
+        ) {
+          return;
+        }
+
+        state.context.save();
+        state.context.lineWidth = 6;
+        state.context.lineCap = "round";
+        state.context.lineJoin = "round";
+
+        let traveledMeters = 0;
+        for (let i = 1; i < geometryCoordinates.length; i += 1) {
+          const startCoordinate = geometryCoordinates[i - 1];
+          const endCoordinate = geometryCoordinates[i];
+          const startPixel = map.getPixelFromCoordinate(startCoordinate);
+          const endPixel = map.getPixelFromCoordinate(endCoordinate);
+          if (!startPixel || !endPixel) {
+            continue;
+          }
+
+          const [x1, y1] = startPixel;
+          const [x2, y2] = endPixel;
+          const currentSegmentMeters = getDistance(
+            toLonLat(startCoordinate),
+            toLonLat(endCoordinate),
+          );
+          const startMeters = traveledMeters;
+          const endMeters = traveledMeters + currentSegmentMeters;
+
+          drawDistanceSegment(
+            state.context,
+            x1,
+            y1,
+            x2,
+            y2,
+            startMeters,
+            endMeters,
+          );
+
+          traveledMeters = endMeters;
+        }
+
+        state.context.restore();
+      };
+
+      const gradientRendererStyle = new Style({
+        renderer: customRenderer,
+      });
+
+      // style for the gradient line and the milestone markers. The actual color is determined by the custom renderer.
+      const lineStyleFunction = (feature) => {
+        const geometry = feature.getGeometry();
+        if (geometry instanceof Point) {
+          return [];
+        }
+
+        return [gradientRendererStyle, ...getMilestoneStyles(geometry)];
+      };
+
+      const vector = new VectorLayer({
+        source,
+        style: lineStyleFunction,
+      });
+
+      map = new Map({
+        target: "map",
+        layers: [
+          new TileLayer({
+            source: new OSM(),
+          }),
+          vector,
+        ],
+        view: new View({
+          center: fromLonLat([13.059252, 47.788145]), // AGIT 2026 location
+          zoom: 19,
+          minZoom: 6,
+        }),
+      });
+
+      const cursorPointStyle = new Style({
+        zIndex: 21,
+        // image: new CircleStyle({ // boring circle pointer :(
+        //   radius: 5,
+        //   fill: new Fill({
+        //     color: 'white',
+        //   }),
+        //   stroke: new Stroke({
+        //     color: "#1b1b1b",
+        //     width: 1.5,
+        //   }),
+        // }),
+        text: new Text({
+          text: "🚗", // happy little car pointer :)
+          font: "14px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif",
+          offsetY: -5,
+        }),
+      });
+
+      const draw = new Draw({
+        source,
+        type: "LineString",
+        style: (feature) => {
+          // style while drawing, including the "cursor" point
+          const geometry = feature.getGeometry();
+          if (geometry instanceof Point) {
+            return cursorPointStyle;
+          }
+
+          return lineStyleFunction(feature);
+        },
+      });
+
+      map.addInteraction(draw);
+
+      maxColoredLengthInput.addEventListener("input", () => {
+        const parsed = Number.parseInt(maxColoredLengthInput.value, 10);
+        maxColoredMeters = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+        maxColoredLengthInput.value = String(maxColoredMeters);
+        colorScale = createColorScale(maxColoredMeters);
+
+        vector.changed();
+        map.render();
+      });
+    </script>
+  </body>
+</html>

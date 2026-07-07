@@ -203,7 +203,7 @@ class: text-center
 
 # Zaunpfähle
   <style>
-  .fenceImage {
+  .clipart {
     position: absolute;
     bottom: 100px;
     left: 40px;
@@ -211,7 +211,21 @@ class: text-center
   </style>
   <DemoFrame src="./demos/draw-fence.html" title="Zaunpfähle" />
 
-  <img src="/assets/fence.png" class="fenceImage w-48 rounded-xl border border-gray-300" />
+  <img src="/assets/fence.png" class="clipart w-48 rounded-xl border border-gray-300" />
+
+---
+
+# Reichweite: Elektroauto
+  <style>
+  .clipart {
+    position: absolute;
+    bottom: 100px;
+    left: 40px;
+  }
+  </style>
+  <DemoFrame src="./demos/low-battery.html" title="Reichweite: Elektroauto" />
+
+  <img src="/assets/low-battery.png" class="clipart w-48 rounded-xl border border-gray-300" />
 
 ---
 

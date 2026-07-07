@@ -35,13 +35,13 @@
   </head>
   <body>
     <div id="controls">
-      <label for="max-colored-length">Max distance (m)</label>
+      <label for="max-colored-length">Max distance (km)</label>
       <input
         id="max-colored-length"
         type="number"
-        min="1"
-        step="1"
-        value="10000"
+        min="0.1"
+        step="0.1"
+        value="10"
       />
     </div>
     <div id="map"></div>
@@ -75,7 +75,7 @@
           chroma
             .scale(["#22e514", "#8ee514", "#dee514", "#e5ad14", "#e51f14"])
             //.scale('YlOrRd') // pre-defined color scale, yellow - orange - red
-            .domain([0, maxDistance * 0.5, maxDistance])
+            .domain([0, maxDistance])
             .mode("lab")
         );
       };
@@ -198,14 +198,11 @@
           });
       };
 
-      const customRenderer = (_pixelCoordinates, state) => {
-        if (!map) {
+      const customRenderer = (pixelCoordinates, state) => {
+        if (!pixelCoordinates || pixelCoordinates.length < 2) {
           return;
         }
-
-        // Draw interaction is hardcoded to LineString.
         const featureGeometry = state.feature.getGeometry();
-
         const geometryCoordinates = featureGeometry.getCoordinates();
         if (
           !Array.isArray(geometryCoordinates) ||
@@ -214,43 +211,49 @@
           return;
         }
 
+        // Derive the canvas offset from the first coordinate.
+        // pixelCoordinates[0] === geometryCoordinates[0] (first point is never simplified away).
+        // map.getPixelFromCoordinate() returns CSS pixels; the layer canvas adds a render-buffer
+        // offset on top: canvasPixel = cssPixel * pixelRatio + canvasOffset.
+        const firstCSSPixel = map.getPixelFromCoordinate(geometryCoordinates[0]);
+        const offsetX =
+          pixelCoordinates[0][0] - firstCSSPixel[0] * state.pixelRatio;
+        const offsetY =
+          pixelCoordinates[0][1] - firstCSSPixel[1] * state.pixelRatio;
+
+        const toCanvas = (coord) => {
+          const css = map.getPixelFromCoordinate(coord);
+          return [
+            css[0] * state.pixelRatio + offsetX,
+            css[1] * state.pixelRatio + offsetY,
+          ];
+        };
+
         state.context.save();
-        state.context.lineWidth = 6;
+        state.context.lineWidth = 8;
         state.context.lineCap = "round";
         state.context.lineJoin = "round";
-
         let traveledMeters = 0;
         for (let i = 1; i < geometryCoordinates.length; i += 1) {
           const startCoordinate = geometryCoordinates[i - 1];
           const endCoordinate = geometryCoordinates[i];
-          const startPixel = map.getPixelFromCoordinate(startCoordinate);
-          const endPixel = map.getPixelFromCoordinate(endCoordinate);
-          if (!startPixel || !endPixel) {
-            continue;
-          }
-
-          const [x1, y1] = startPixel;
-          const [x2, y2] = endPixel;
+          const [x1, y1] = toCanvas(startCoordinate);
+          const [x2, y2] = toCanvas(endCoordinate);
           const currentSegmentMeters = getDistance(
             toLonLat(startCoordinate),
             toLonLat(endCoordinate),
           );
-          const startMeters = traveledMeters;
-          const endMeters = traveledMeters + currentSegmentMeters;
-
           drawDistanceSegment(
             state.context,
             x1,
             y1,
             x2,
             y2,
-            startMeters,
-            endMeters,
+            traveledMeters,
+            traveledMeters + currentSegmentMeters,
           );
-
-          traveledMeters = endMeters;
+          traveledMeters += currentSegmentMeters;
         }
-
         state.context.restore();
       };
 
@@ -268,7 +271,7 @@
         return [gradientRendererStyle, ...getMilestoneStyles(geometry)];
       };
 
-      const vector = new VectorLayer({
+      const drawLayer = new VectorLayer({
         source,
         style: lineStyleFunction,
       });
@@ -279,11 +282,11 @@
           new TileLayer({
             source: new OSM(),
           }),
-          vector,
+          drawLayer,
         ],
         view: new View({
           center: fromLonLat([13.059252, 47.788145]), // AGIT 2026 location
-          zoom: 19,
+          zoom: 10,
           minZoom: 6,
         }),
       });
@@ -321,16 +324,21 @@
         },
       });
 
+      draw.on('drawstart', (event) => {
+        // clear any old sketch
+        source.clear();
+      });
+
       map.addInteraction(draw);
 
       maxColoredLengthInput.addEventListener("input", () => {
-        const parsed = Number.parseInt(maxColoredLengthInput.value, 10);
-        maxColoredMeters = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-        maxColoredLengthInput.value = String(maxColoredMeters);
+        const parsedKm = Number(maxColoredLengthInput.value);
+        const validKm = parsedKm > 0 ? parsedKm : 0.1;
+        maxColoredMeters = validKm * 1000;
+        maxColoredLengthInput.value = String(validKm);
         colorScale = createColorScale(maxColoredMeters);
 
-        vector.changed();
-        map.render();
+        drawLayer.changed(); // inform the layer that the style has changed and it needs to re-render
       });
     </script>
   </body>

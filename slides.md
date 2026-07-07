@@ -193,12 +193,16 @@ class: text-center
 ---
 
 # Zaunpfähle
+  <style>
+  .fenceImage {
+    position: absolute;
+    bottom: 100px;
+    left: 40px;
+  }
+  </style>
+  <DemoFrame src="./demos/draw-fence.html" title="Zaunpfähle" />
 
-<!-- <a href="https://terrestris.github.io/fossgis2023/talks/2023-03-15-jansen-hocevar-openlayers-feature-frenzy.html#/spatial-analysis" target="_blank" class="flex items-center gap-1 text-sm opacity-80 hover:opacity-100">
-  <span class="i-carbon:launch" />OpenLayers Feature Frenzy · FOSSGIS 2023
-</a> -->
-
-<DemoFrame src="./demos/draw-fence.html" title="Zaunpfähle" />
+  <img src="/assets/fence.png" class="fenceImage w-48 rounded-xl border border-gray-300" />
 
 ---
 

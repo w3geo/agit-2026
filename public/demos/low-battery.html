@@ -39,9 +39,9 @@
       <input
         id="max-colored-length"
         type="number"
-        min="0.1"
-        step="0.1"
-        value="10"
+        min="10"
+        step="10"
+        value="200"
       />
     </div>
     <div id="map"></div>
@@ -63,13 +63,17 @@
       import Text from "https://esm.sh/ol/style/Text.js";
       import { fromLonLat, toLonLat } from "https://esm.sh/ol/proj.js";
 
+      // VectorSource holds the drawn features (LineStrings).
       const source = new VectorSource();
       const maxColoredLengthInput =
         document.getElementById("max-colored-length");
 
       let map;
-      let maxColoredMeters = 10000;
+      // maxColoredMeters is the distance (in meters) at which the color scale ends.
+      // Beyond this distance the line is drawn black.
+      let maxColoredMeters = 200000;
 
+      // Build a chroma color scale from green -> yellow -> red over [0, maxDistance].
       const createColorScale = (maxDistance) => {
         return (
           chroma
@@ -82,6 +86,8 @@
 
       let colorScale = createColorScale(maxColoredMeters);
 
+      // Returns the hex color for a given cumulative distance.
+      // Distances beyond maxColoredMeters are clamped to black.
       const getPathColor = (distanceMeters) => {
         if (distanceMeters > maxColoredMeters) {
           return "#000000";
@@ -89,6 +95,7 @@
         return colorScale(distanceMeters).hex();
       };
 
+      // Milestone markers placed at 50%, 80%, and 100% of the max colored distance.
       const getMilestoneConfig = () => {
         return [
           { distance: maxColoredMeters * 0.5, icon: "❗" },
@@ -97,6 +104,7 @@
         ];
       };
 
+      // Low-level helper: stroke a single canvas line segment with the given style.
       const drawSegmentPart = (context, x1, y1, x2, y2, strokeStyle) => {
         context.beginPath();
         context.moveTo(x1, y1);
@@ -107,6 +115,10 @@
 
       const lerp = (a, b, t) => a + (b - a) * t;
 
+      // Draw one geometry segment (startMeters -> endMeters) with distance-based colors.
+      // Segments crossing the maxColoredMeters threshold are split at that boundary.
+      // The colored part is sampled in small meter-steps so the color is purely a
+      // function of cumulative distance and is independent of segment length or zoom.
       const drawDistanceSegment = (
         context,
         x1,
@@ -145,7 +157,9 @@
         }
 
         // Sample by real meters so colors are stable regardless of total line length.
-        const meterStep = 2;
+        // Use adaptive step size: long segments sample at larger intervals for performance.
+        const maxIterations = 1000;
+        const meterStep = Math.max(2, Math.ceil(segmentMeters / maxIterations));
         for (let d = startMeters; d < endMeters; d += meterStep) {
           const d0 = d;
           const d1 = Math.min(d + meterStep, endMeters);
@@ -163,6 +177,7 @@
         }
       };
 
+      // Return OL Style objects for each milestone that falls within the line's length.
       const getMilestoneStyles = (line) => {
         const totalLength = getLength(line);
         if (totalLength <= 0) {
@@ -192,12 +207,16 @@
               text: new Text({
                 text: milestone.icon,
                 font: "14px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif",
-                offsetY: 2,
+                // offsetY: 2,
               }),
             });
           });
       };
 
+      // Custom canvas renderer for the gradient line.
+      // OL calls this for every render frame with the projected pixel coordinates.
+      // We re-project all original geometry coordinates ourselves so distance
+      // calculation is never affected by OL's automatic geometry simplification.
       const customRenderer = (pixelCoordinates, state) => {
         if (!pixelCoordinates || pixelCoordinates.length < 2) {
           return;
@@ -261,7 +280,8 @@
         renderer: customRenderer,
       });
 
-      // style for the gradient line and the milestone markers. The actual color is determined by the custom renderer.
+      // Style function for completed and in-progress LineString features.
+      // Point geometries (the live Draw cursor) are excluded here and styled separately below.
       const lineStyleFunction = (feature) => {
         const geometry = feature.getGeometry();
         if (geometry instanceof Point) {
@@ -310,11 +330,12 @@
         }),
       });
 
+      // The Draw interaction lets the user click to add vertices and double-click to finish.
+      // Its style function distinguishes the live cursor point from the sketch LineString.
       const draw = new Draw({
         source,
         type: "LineString",
         style: (feature) => {
-          // style while drawing, including the "cursor" point
           const geometry = feature.getGeometry();
           if (geometry instanceof Point) {
             return cursorPointStyle;
@@ -325,7 +346,7 @@
       });
 
       draw.on('drawstart', (event) => {
-        // clear any old sketch
+        // Clear the previous line so only one is visible at a time.
         source.clear();
       });
 
@@ -333,7 +354,7 @@
 
       maxColoredLengthInput.addEventListener("input", () => {
         const parsedKm = Number(maxColoredLengthInput.value);
-        const validKm = parsedKm > 0 ? parsedKm : 0.1;
+        const validKm = parsedKm > 0 ? parsedKm : 10;
         maxColoredMeters = validKm * 1000;
         maxColoredLengthInput.value = String(validKm);
         colorScale = createColorScale(maxColoredMeters);

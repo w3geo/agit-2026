@@ -30,6 +30,16 @@
         padding: 0.5rem 0.75rem;
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       }
+      .ol-tooltip {
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        white-space: nowrap;
+        pointer-events: none;
+      }
     </style>
     <link rel="stylesheet" href="https://esm.sh/ol/ol.css" />
   </head>
@@ -39,9 +49,9 @@
       <input
         id="max-colored-length"
         type="number"
-        min="0.1"
-        step="0.1"
-        value="10"
+        min="10"
+        step="10"
+        value="200"
       />
     </div>
     <div id="map"></div>
@@ -63,13 +73,14 @@
       import Text from "https://esm.sh/ol/style/Text.js";
       import { fromLonLat, toLonLat } from "https://esm.sh/ol/proj.js";
       import Feature from "https://esm.sh/ol/Feature.js";
+      import Overlay from "https://esm.sh/ol/Overlay.js";
 
       const source = new VectorSource();
       const maxColoredLengthInput =
         document.getElementById("max-colored-length");
 
       let map;
-      let maxColoredMeters = 10000;
+      let maxColoredMeters = 200000;
 
       const createColorScale = (maxDistance) => {
         return (
@@ -146,7 +157,9 @@
         }
 
         // Sample by real meters so colors are stable regardless of total line length.
-        const meterStep = 2;
+        // Use adaptive step size: long segments sample at larger intervals for performance.
+        const maxIterations = 1000;
+        const meterStep = Math.max(2, Math.ceil(segmentMeters / maxIterations));
         for (let d = startMeters; d < endMeters; d += meterStep) {
           const d0 = d;
           const d1 = Math.min(d + meterStep, endMeters);
@@ -231,7 +244,7 @@
         };
 
         state.context.save();
-        state.context.lineWidth = 8;
+        state.context.lineWidth = 10;
         state.context.lineCap = "round";
         state.context.lineJoin = "round";
         let traveledMeters = 0;
@@ -294,6 +307,31 @@
 
       let routeWaypoints = [];
 
+      const tooltipEl = document.createElement("div");
+      tooltipEl.className = "ol-tooltip";
+      const tooltipOverlay = new Overlay({
+        element: tooltipEl,
+        offset: [12, 12],
+        positioning: "top-left",
+        stopEvent: false,
+      });
+      map.addOverlay(tooltipOverlay);
+
+      const tooltipMessages = ["Click to set start point", "Click to set end point"];
+
+      map.on("pointermove", (event) => {
+        if (routeWaypoints.length < 2) {
+          tooltipEl.textContent = tooltipMessages[routeWaypoints.length];
+          tooltipOverlay.setPosition(event.coordinate);
+        } else {
+          tooltipOverlay.setPosition(undefined);
+        }
+      });
+
+      map.on("pointerout", () => {
+        tooltipOverlay.setPosition(undefined);
+      });
+
       const fetchAndAddRoute = async (start, end) => {
         const startLonLat = toLonLat(start);
         const endLonLat = toLonLat(end);
@@ -331,7 +369,7 @@
 
       maxColoredLengthInput.addEventListener("input", () => {
         const parsedKm = Number(maxColoredLengthInput.value);
-        const validKm = parsedKm > 0 ? parsedKm : 0.1;
+        const validKm = parsedKm > 0 ? parsedKm : 10;
         maxColoredMeters = validKm * 1000;
         maxColoredLengthInput.value = String(validKm);
         colorScale = createColorScale(maxColoredMeters);

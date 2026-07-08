@@ -3,7 +3,7 @@
 theme: default
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
+background: /assets/title-background.webp
 # some information about your slides (markdown enabled)
 title: w3geo – schauen Sie uns in die Karten
 # apply UnoCSS classes to the current slide
@@ -26,7 +26,7 @@ OpenLayers in Web-Applikationen
 <img src="/assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
 
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+Willkommen!
 -->
 
 ---
@@ -58,6 +58,12 @@ Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
     <p class="mt-2 text-sm font-medium">Robert Orthofer</p>
   </div>
 </div>
+
+<!--
+Wir sind ein Team aus Raumplanern, Geoinformatikern und Telematikern, die es sich zum Ziel gemacht haben,
+mit Hilfe von Software Planungsprozesse einfach, verständlich und transparent zu machen. Als ideales Mittel
+dazu sehen wir interaktive Karten und Open Source Software im Web Browser.
+-->
 
 ---
 layout: center
@@ -98,6 +104,16 @@ class: text-center
     ]"/>
 </div>
 
+<!--
+Einige dieser Applikationen seht ihr hier im Schnelldurchlauf. Die Karten sind interaktiv. Je nach Kontext sind
+mit Klicks in die Karte unterschiedliche Aktionen verknüpft. Das kann zum Beispiel Detailinformation zum geklickten
+Punkt sein, oder eine Editieraktion. Im Gegensatz zu einem GIS kann man genau das zeigen, was zum Gewinnen von
+Erkenntnis oder im jeweiligen Arbeitsablauf ideal ist. Also weg von klassischen Tabellen mit Attribut-Information hin
+zu maßgeschneidertem Inhalt.
+
+Das Ziel: niederschwellige Information für unbedarfte Benutzer, effiziente Workflows für Experten.
+-->
+
 ---
 layout: center
 class: flex flex-col items-center gap-8 text-center
@@ -109,6 +125,13 @@ class: flex flex-col items-center gap-8 text-center
   <source src="/assets/gip-edit-trimmed.mp4" type="video/mp4" />
 </video>
 
+<!--
+Editieren von Geodaten kann sehr abstrakt sein. Hier seht ihr einen Editiervorgang, wo an einem Straßenabschnitt
+die Nutzungsstreifen bearbeitet werden. Dazu haben wir eine Darstellung gewählt, welche die einzelnen Nutzungen
+so darstellt, wie sie in der Natur aussehen. Außérdem haben wir rechts eine Ansicht des Straßenprofils, die mit
+der Karte synchronisiert ist. Abstände von der Straßenachse, Breiten und die Länge der Abschnitte lassen sich so
+sehr intuitiv editieren.
+-->
 
 ---
 transition: fade-out

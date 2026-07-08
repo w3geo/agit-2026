@@ -21,7 +21,7 @@ duration: 7min
 
 # Schauen Sie uns in die Karten!
 
-OpenLayers in Web-Applikationen
+Our Maps on The Table — OpenLayers in Web Applications
 
 <img src="/assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
 
@@ -38,11 +38,11 @@ layoutClass: gap-10 items-center
 
 # w3geo GmbH
 
-Fachlich fundierte Kartenapplikationen im Web mit OpenLayers
+Professionally sound web map applications with OpenLayers
 
-- Guter fachlicher Mix: Raumplanung, Geographie, Telematik
-- Open Source: Kernentwickler von OpenLayers und anderen Projekten
-- Jahrzehntelange Erfahrung mit Entwicklung von Web-Applikationen
+- A well-rounded mix of expertise: spatial planning, geography, telematics
+- Open source: core developers of OpenLayers and other projects
+- Decades of experience building web applications
 
 ::right::
 
@@ -72,7 +72,7 @@ layout: center
 class: text-center
 ---
 
-# Karten, Kontext, Bedienelemente
+# Maps, Context, Controls
 
 <div class="mt-6 mx-auto" style="height: 440px; aspect-ratio: 16 / 9;">
   <MapCarousel
@@ -121,7 +121,7 @@ layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
 
-# Editieren, besser als im GIS
+# Editing, better than in GIS
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/gip-edit-trimmed.mp4" type="video/mp4" />

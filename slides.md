@@ -150,13 +150,15 @@ class: flex flex-col items-center gap-8 text-center
 
 
  <!-- 
-  "eye candy" / "eye catcher" 
-
-  wichtig die Nutzer zu halten und zu fokussieren  
-  Beispiel erklären: Modellierung von Waldschäden des BFW, Geotemporale daten sind immer schwierig zu fassen
+  Ein paar Punkte von mir zur Web-Kartographie: 
+  "Eye Candy" ist in dieser Branche zu Unrecht negativ konnotiert. 
+  
+Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fokussieren  
+  Beispiel erklären: Modellierung von Waldschäden des BFW, geotemporale Daten sind immer schwierig zu fassen
 
   Farbskalen über chroma js 
     viridis / plasma / inferno / ...
+
     Perceptually uniform: 
     Colorblind-friendly.
     Readable in grayscale.
@@ -164,7 +166,7 @@ class: flex flex-col items-center gap-8 text-center
 
   Spaß statt Frust / kartographisch "richtig" ohne langweilig zu sein
 
-  Slider / color legend: Sehr einfache Entscheidungen können den Unterschied zwischen einem langweiligem Profi-GIS-Tool und einer spannenden Speziallösung sein
+  Slider / Farblegende: Sehr einfache Entscheidungen können den Unterschied zwischen einem langweiligem Profi-GIS-Tool und einer spannenden Speziallösung sein
  -->
  
 ---
@@ -188,7 +190,7 @@ class: flex flex-col items-center gap-8 text-center
 
   Steigerung der "Akzeptanz" der Applikation => Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden
 
-   => vereinheitlichte Benutzerwünsche / gewohnheiten
+   => vereinheitlichte Benutzerwünsche / Gewohnheiten
   Erläuterung GZA Land Niederösterreich (Kartographie weiter entfernt von Realität => stärkere Generalisierung, maximale Benutzbarkeit im Feld)
 -->
 

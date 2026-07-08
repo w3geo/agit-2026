@@ -26,7 +26,9 @@ OpenLayers in Web-Applikationen
 <img src="/assets/w3geo-logo.png" class="abs-br m-8 h-12" style="filter: brightness(3)" />
 
 <!--
-Willkommen!
+Willkommen! Wir von w3geo wollen euch heute einen kleinen Einblick in unsere Sicht auf räumliche
+Informationen geben, und welche Lösungen wir mit unseren Kunden erarbeitet haben, um sie in
+Erkenntnis- und Arbeitsprozesse zu integrieren.
 -->
 
 ---

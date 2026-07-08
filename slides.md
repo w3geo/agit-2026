@@ -144,7 +144,7 @@ disabled: true
 layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
-# Es ist nicht *nur* Eye Candy 🍬
+# It's not *just* Eye Candy 🍬
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/waldschaden_2026.mp4" type="video/mp4" />
@@ -182,7 +182,7 @@ layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
 
-# Den Nutzern zeigen, was sie sehen wollen
+# Show the users what they really want to see
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/gza_2026.mp4" type="video/mp4" />
@@ -201,12 +201,12 @@ class: flex flex-col items-center gap-8 text-center
 layout: center
 ---
 
-# Das Web als Plattform
+# The Web Browser as Platform
 
-* Keine Software- oder App-Installation notwendig
-* Bei Bedarf auch offline verfügbar
-* Vertraute Umgebung für Nutzer
-* Benutzeroberfläche für breiteres Publikum als bei Desktop-GIS
+* no installation of additional software needed
+* possible offline functionality
+* well-known environment for the user
+* user interface for a larger audience than desktop-GIS
 
 
 <!-- 

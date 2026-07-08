@@ -119,7 +119,6 @@ disabled: true
 layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
-
 # Es ist nicht *nur* Eye Candy 🍬
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
@@ -127,6 +126,24 @@ class: flex flex-col items-center gap-8 text-center
 </video>
 
 
+ <!-- 
+  "eye candy" / "eye catcher" 
+
+  wichtig die Nutzer zu halten und zu fokussieren  
+  Beispiel erklären: Modellierung von Waldschäden des BFW, Geotemporale daten sind immer schwierig zu fassen
+
+  Farbskalen über chroma js 
+    viridis / plasma / inferno / ...
+    Perceptually uniform: 
+    Colorblind-friendly.
+    Readable in grayscale.
+    Aesthetically pleasing
+
+  Spaß statt Frust / kartographisch "richtig" ohne langweilig zu sein
+
+  Slider / color legend: Sehr einfache Entscheidungen können den Unterschied zwischen einem langweiligem Profi-GIS-Tool und einer spannenden Speziallösung sein
+ -->
+ 
 ---
 transition: fade-out
 disabled: true
@@ -143,6 +160,14 @@ class: flex flex-col items-center gap-8 text-center
   <source src="/assets/gza_2026.mp4" type="video/mp4" />
 </video>
 
+<!-- 
+  Wer sind "die Nutzer"? nicht irgendwelche gesichtslosen Phantome, auch die Verwalter im Backend sind "User"
+  Steigerung der "Akzeptanz" der Applikation
+  Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden
+   => vereinheitlichte Benutzerwünsche / Gewohnheiten
+  Erläuterung GZA Land Niederösterreich
+-->
+
 ---
 layout: center
 ---
@@ -154,6 +179,19 @@ layout: center
 * Vertraute Umgebung für Nutzer
 * Benutzeroberfläche für breiteres Publikum als bei Desktop-GIS
 
+
+<!-- 
+  großes Stichwort "Niederschwelligkeit" 
+  Das Web wird immer mächtiger, je mehr das web kann, desto mehr sinkt die Akzeptanz von nativen Applikationen
+
+   => mit PWAs noch mächtiger (Stichwort offline)
+
+  was macht linksklick / rechtsklick
+
+  Benutzeroberfläche: andere Sprachen, Schriftgröße, Screenreader, Dark Theme ist bereits vom Benutzer definiert
+
+  Die Benutzer können in eine Applikation einsteigen und sich sofort zuhause fühlen
+-->
 ---
 layout: center
 class: text-center

@@ -155,8 +155,9 @@ class: flex flex-col items-center gap-8 text-center
   Ein paar Punkte von mir zur Web-Kartographie: 
   "Eye Candy" ist in dieser Branche zu Unrecht negativ konnotiert. 
   
-Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fokussieren  
-  Beispiel erklären: Modellierung von Waldschäden des BFW, geotemporale Daten sind immer schwierig zu fassen
+Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fokussieren. 
+
+Hier im Hintergrund seht ihr die neue "Waldschaden"-Applikation des BFW, in diesem Beispiel konkret eine satellitengestützte Modellierung von Schadensflächen bzw. das Eintrittsdatum von Schäden. Geotemporale Daten sind von vornherein bereits schwierig zu fassen, umso wichtiger ist, dass die Applikation möglichst intuitiv und greifbar ist.
 
   Farbskalen über chroma js 
     viridis / plasma / inferno / ...
@@ -166,9 +167,9 @@ Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fok
     Readable in grayscale.
     Aesthetically pleasing
 
-  Spaß statt Frust / kartographisch "richtig" ohne langweilig zu sein
+  Wir wollen Spaß statt Frust, kartographisch "richtige" Darstellungen ohne langweilig zu sein
 
-  Slider / Farblegende: Sehr einfache Entscheidungen können den Unterschied zwischen einem langweiligem Profi-GIS-Tool und einer spannenden Speziallösung sein
+  Sehr einfache Entscheidungen wie die Farblegende direkt über der  Zeitauswahl können den Unterschied zwischen einem langweiligem Profi-GIS-Tool mit vielen Menüs und einer spannenden Speziallösung sein
  -->
  
 ---
@@ -188,12 +189,12 @@ class: flex flex-col items-center gap-8 text-center
 </video>
 
 <!-- 
-  Wer sind "die Nutzer"? nicht irgendwelche gesichtslosen Phantome, auch die Verwalter im Backend sind "User"
+  Wer sind "die Nutzer"? Nicht irgendwelche gesichtslosen Phantome, auch die Verwalter im Backend sind "User", auch für die dürfen Freude empfinden, wenn sie "ihr" Tool benutzen. 
 
-  Steigerung der "Akzeptanz" der Applikation => Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden
+  Für "externe" Benutzer: Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden und desto besser kann die "User Experience" zugeschnitten werden. Und wenn die Applikation gut zugeschnitten ist, steigt auch die "Akzeptanz" der Applikation
 
-   => vereinheitlichte Benutzerwünsche / Gewohnheiten
-  Erläuterung GZA Land Niederösterreich (Kartographie weiter entfernt von Realität => stärkere Generalisierung, maximale Benutzbarkeit im Feld)
+
+  Bei einem kleinen (Experten)-Benutzerkreis kommt es zu vereinheitlichte Benutzerwünsche / Gewohnheiten. Hier in bei der Gewässerzustands-Erhebungsapplikation vom Land niederösterreich haben wir eine sehr abstrakte, symbolische Signatur im Unterschied zu den ikonischen Signaturen wie z.B. bei Estrab vorhin. Die Benutzer präferieren die maximale Unterscheidbarkeit und Benutzbarkeit im Feld bei Aufnahmen in unwegsamen Gelände anstelle einer "realitätsnahen" Darstellung
 -->
 
 ---
@@ -210,15 +211,13 @@ layout: center
 
 <!-- 
   großes Stichwort "Niederschwelligkeit" 
-  Das Web wird immer mächtiger, je mehr das web kann, desto mehr sinkt die Akzeptanz von nativen Applikationen
+  Das Web wird immer mächtiger, je mehr das Web kann, desto mehr sinkt die Akzeptanz von nativen Applikationen.
+  Applikationen im Web werden noch mächtiger als PWAs, damit sind auch wichtige Zusatzfeatures wie Offline-Fähigkeit möglich
 
-   => mit PWAs noch mächtiger (Stichwort offline)
+  Der Benutzer ist in seiner gewohnten Umgebung, er weiß was Links- und Rechtsklick machen, kann Bookmarks setzen, Content Teilen.
+  Benutzer mit besonderen Bedürfnissen haben Schriftgröße, Screenreader oder Dark Theme bereits im Browser definiert, Applikationen können ohne großen Mehraufwand barrierefrei gestaltet werden.
 
-  was macht linksklick / rechtsklick
-
-  Benutzeroberfläche: andere Sprachen, Schriftgröße, Screenreader, Dark Theme ist bereits vom Benutzer definiert
-
-  Die Benutzer können in eine Applikation einsteigen und sich sofort zuhause fühlen
+  Die Benutzer können in eine Applikation einsteigen und sich sofort zuhause fühlen. Apropos wie zuhause fühlen, wir als w3geo sind bei der AGIT an unserem Stand zuhause, wir freuen uns nach der Fragerund auf alle Besucher!
 -->
 ---
 layout: center

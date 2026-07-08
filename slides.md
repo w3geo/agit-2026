@@ -185,10 +185,11 @@ class: flex flex-col items-center gap-8 text-center
 
 <!-- 
   Wer sind "die Nutzer"? nicht irgendwelche gesichtslosen Phantome, auch die Verwalter im Backend sind "User"
-  Steigerung der "Akzeptanz" der Applikation
-  Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden
-   => vereinheitlichte Benutzerwünsche / Gewohnheiten
-  Erläuterung GZA Land Niederösterreich
+
+  Steigerung der "Akzeptanz" der Applikation => Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden
+
+   => vereinheitlichte Benutzerwünsche / gewohnheiten
+  Erläuterung GZA Land Niederösterreich (Kartographie weiter entfernt von Realität => stärkere Generalisierung, maximale Benutzbarkeit im Feld)
 -->
 
 ---

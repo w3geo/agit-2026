@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>07 Simple Measure</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+
+      .ol-tooltip {
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 4px;
+        color: white;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+        padding: 3px 8px;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+    </style>
+    <link rel="stylesheet" href="https://esm.sh/ol/ol.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="module">
+      import Map from "https://esm.sh/ol/Map.js";
+      import View from "https://esm.sh/ol/View.js";
+      import TileLayer from "https://esm.sh/ol/layer/Tile.js";
+      import VectorLayer from "https://esm.sh/ol/layer/Vector.js";
+      import OSM from "https://esm.sh/ol/source/OSM.js";
+      import VectorSource from "https://esm.sh/ol/source/Vector.js";
+      import Draw from "https://esm.sh/ol/interaction/Draw.js";
+      import Point from "https://esm.sh/ol/geom/Point.js";
+      import { getLength } from "https://esm.sh/ol/sphere.js";
+      import Style from "https://esm.sh/ol/style/Style.js";
+      import Stroke from "https://esm.sh/ol/style/Stroke.js";
+      import CircleStyle from "https://esm.sh/ol/style/Circle.js";
+      import Fill from "https://esm.sh/ol/style/Fill.js";
+      import Overlay from "https://esm.sh/ol/Overlay.js";
+      import { fromLonLat } from "https://esm.sh/ol/proj.js";
+
+      // Format a geodesic distance (meters) into a human-readable string.
+      const formatDistance = (meters) => {
+        if (meters >= 1000) {
+          return `${(meters / 1000).toFixed(2)} km`;
+        }
+        return `${Math.round(meters)} m`;
+      };
+
+      // VectorSource holds the finished measurement line.
+      const source = new VectorSource();
+
+      // The layer renders completed lines with a solid stroke so they remain
+      // visible after drawing finishes.
+      const measureLayer = new VectorLayer({
+        source,
+        style: new Style({
+          stroke: new Stroke({ color: "#3377ff", width: 2 }),
+        }),
+      });
+
+      const map = new Map({
+        target: "map",
+        layers: [new TileLayer({ source: new OSM() }), measureLayer],
+        view: new View({
+          center: fromLonLat([13.059252, 47.788145]), // AGIT 2026 location
+          zoom: 10,
+          minZoom: 6,
+        }),
+      });
+
+      // Overlay that shows the running distance while drawing, and the final
+      // distance pinned to the end of the line after drawing is finished.
+      const tooltipEl = document.createElement("div");
+      tooltipEl.className = "ol-tooltip";
+      const tooltipOverlay = new Overlay({
+        element: tooltipEl,
+        offset: [0, -10],
+        positioning: "bottom-center",
+        stopEvent: false,
+      });
+      map.addOverlay(tooltipOverlay);
+
+      // Dashed line + dot style (cursor) used for the in-progress sketch.
+      const sketchLineStyle = new Style({
+        stroke: new Stroke({ color: "#3377ff", width: 2, lineDash: [8, 6] }),
+      });
+      const sketchPointStyle = new Style({
+        image: new CircleStyle({
+          radius: 5,
+          fill: new Fill({ color: "#3377ff" }),
+          stroke: new Stroke({ color: "#fff", width: 1.5 }),
+        }),
+      });
+
+      const draw = new Draw({
+        source,
+        type: "LineString",
+        style: (feature) => {
+          const geometry = feature.getGeometry();
+          if (geometry instanceof Point) {
+            return sketchPointStyle;
+          }
+          return sketchLineStyle;
+        },
+      });
+
+      // Track whether a sketch is currently in progress.
+      let isDrawing = false;
+
+      draw.on("drawstart", () => {
+        isDrawing = true;
+        // Remove the previous measurement so only one line is shown at a time.
+        source.clear();
+        tooltipOverlay.setPosition(undefined);
+      });
+
+      draw.on("drawend", (e) => {
+        isDrawing = false;
+        // Pin the final distance to the end of the finished line.
+        const geometry = e.feature.getGeometry();
+        tooltipEl.textContent = formatDistance(getLength(geometry));
+        tooltipOverlay.setPosition(geometry.getLastCoordinate());
+      });
+
+      map.addInteraction(draw);
+
+      // While a sketch is active, update the tooltip distance on every pointer move.
+      map.on("pointermove", (event) => {
+        if (!isDrawing) {
+          return;
+        }
+        const sketch = draw.getOverlay().getSource().getFeatures()[0];
+        if (!sketch) {
+          return;
+        }
+        const geometry = sketch.getGeometry();
+        if (geometry.getCoordinates().length < 2) {
+          tooltipOverlay.setPosition(undefined);
+          return;
+        }
+        tooltipEl.textContent = formatDistance(getLength(geometry));
+        tooltipOverlay.setPosition(event.coordinate);
+      });
+    </script>
+  </body>
+</html>

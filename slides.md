@@ -266,6 +266,12 @@ class: text-center
 
 ---
 
+# Simples Mess-Tool
+
+<DemoFrame src="./demos/simple-measure.html" title="measure" />
+
+---
+
 # Zaunpfähle
   <style>
   .clipart {
@@ -277,29 +283,6 @@ class: text-center
   <DemoFrame src="./demos/draw-fence.html" title="Zaunpfähle" />
 
   <img src="/assets/fence.png" class="clipart w-48 rounded-xl border border-gray-300" />
-
----
-
-# Reichweite: Elektroauto
-  <style>
-  .clipart {
-    position: absolute;
-    bottom: 100px;
-    left: 40px;
-  }
-  </style>
-  <DemoFrame src="./demos/low-battery.html" title="Reichweite: Elektroauto" />
-
-  <img src="/assets/low-battery.png" class="clipart w-48 rounded-xl border border-gray-300" />
-
----
-
-# Reichweite: Elektroauto (+ OSRM-Routing)
-  
-<DemoFrame 
-  src="./demos/low-battery-routing.html" 
-  title="Reichweite: Elektroauto (Routing)" 
-/>
 
 ---
 
@@ -324,6 +307,30 @@ class: text-center
 </a>
 
 <DemoFrame src="./demos/gradient.html" title="Hangneigung" />
+
+---
+
+# Reichweite: Elektroauto
+  <style>
+  .clipart {
+    position: absolute;
+    bottom: 100px;
+    left: 40px;
+  }
+  </style>
+  <DemoFrame src="./demos/low-battery.html" title="Reichweite: Elektroauto" />
+
+  <img src="/assets/low-battery.png" class="clipart w-48 rounded-xl border border-gray-300" />
+
+---
+
+# Reichweite: Elektroauto (+ OSRM-Routing)
+  
+<DemoFrame 
+  src="./demos/low-battery-routing.html" 
+  title="Reichweite: Elektroauto (Routing)" 
+/>
+
 
 ---
 transition: fade-out

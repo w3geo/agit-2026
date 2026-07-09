@@ -263,6 +263,9 @@ class: text-center
     <span class="i-carbon:code" />Live-Coding zum Mitmachen · jsfiddle.net
   </a>
 </div>
+<div class="flex flex-col items-center gap-3 mt-12">
+  <QRCode class="w-40" />
+</div>
 
 ---
 

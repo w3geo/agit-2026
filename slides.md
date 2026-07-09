@@ -204,9 +204,9 @@ layout: center
 # The Web Browser as Platform
 
 * no installation of additional software needed
-* possible offline functionality
+* offline capabilities (progressive web app)
 * well-known environment for the user
-* user interface for a larger audience than desktop-GIS
+* user interface for a broader audience than desktop-GIS
 
 
 <!-- 

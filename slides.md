@@ -224,7 +224,7 @@ layout: center
 class: text-center
 ---
 
-# Danke für die Aufmerksamkeit
+# Thank you!
 
 <div class="flex justify-center gap-16 mt-8">
   <div>

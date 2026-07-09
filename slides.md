@@ -144,7 +144,7 @@ disabled: true
 layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
-# It's not *just* Eye Candy 🍬
+# It's Not *Just* Eye Candy 🍬
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/waldschaden_2026.mp4" type="video/mp4" />
@@ -182,7 +182,7 @@ layout: center
 class: flex flex-col items-center gap-8 text-center
 ---
 
-# Show the users what they really want to see
+# Show the Users What They Really Want to See
 
 <video class="rounded-lg shadow-lg h-100" autoplay loop muted playsinline>
   <source src="/assets/gza_2026.mp4" type="video/mp4" />

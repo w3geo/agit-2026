@@ -152,24 +152,16 @@ class: flex flex-col items-center gap-8 text-center
 
 
  <!-- 
-  Ein paar Punkte von mir zur Web-Kartographie: 
-  "Eye Candy" ist in dieser Branche zu Unrecht negativ konnotiert. 
+  Ein paar Punkte von mir zur Web-Kartographie, insbesondere zum Begriff "Eye Candy". "Eye Candy" hat in unserer Branche eine negative Konnotation, meiner Meinung nach zu Unrecht.
   
-Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fokussieren. 
+Eye Candy soll (im Unterschied zu einem "Eye Catcher") den Nutzer halten und fokussieren, es sind nicht nur sinnlose Spielereien.
 
-Hier im Hintergrund seht ihr die neue "Waldschaden"-Applikation des BFW, in diesem Beispiel konkret eine satellitengestützte Modellierung von Schadensflächen bzw. das Eintrittsdatum von Schäden. Geotemporale Daten sind von vornherein bereits schwierig zu fassen, umso wichtiger ist, dass die Applikation möglichst intuitiv und greifbar ist.
+Hier im Hintergrund seht ihr die neue "Waldschaden"-Applikation von uns für das BFW, in diesem Beispiel sieht man konkret eine satellitengestützte Modellierung von Schadensflächen bzw. noch genauer das Eintrittsdatum von Schäden. Geotemporale Daten sind von vornherein bereits schwierig zu fassen, umso wichtiger ist, dass der Benutzer fokussiert bleibt. 
 
-  Farbskalen über chroma js 
-    viridis / plasma / inferno / ...
 
-    Perceptually uniform: 
-    Colorblind-friendly.
-    Readable in grayscale.
-    Aesthetically pleasing
 
-  Wir wollen Spaß statt Frust, kartographisch "richtige" Darstellungen ohne langweilig zu sein
+  Durch die sehr simple Entscheidung, die korrespondierende Farbskala direkt über dem Zeitschieber zu legen hat man ein interessantes aber dennoch intuitives Bedienelement, sowohl für Laien als auch für Profi-GIS-User.
 
-  Sehr einfache Entscheidungen wie die Farblegende direkt über der  Zeitauswahl können den Unterschied zwischen einem langweiligem Profi-GIS-Tool mit vielen Menüs und einer spannenden Speziallösung sein
  -->
  
 ---
@@ -189,12 +181,12 @@ class: flex flex-col items-center gap-8 text-center
 </video>
 
 <!-- 
-  Wer sind "die Nutzer"? Nicht irgendwelche gesichtslosen Phantome, auch die Verwalter im Backend sind "User", auch für die dürfen Freude empfinden, wenn sie "ihr" Tool benutzen. 
+  Apropos "Profi-Nutzer", eine Frage, die man sich bei jeder Anwendung stellen muss ist: Wer sind "die Nutzer"? "Die Nutzer" sind oft nicht irgendwelche gesichtslosen Phantome, sondern auch die Verwalter im Backend sind "User", auch die Power-User dürfen Freude empfinden, wenn sie quasi "ihr" Tool benutzen. 
 
-  Für "externe" Benutzer: Je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden und desto besser kann die "User Experience" zugeschnitten werden. Und wenn die Applikation gut zugeschnitten ist, steigt auch die "Akzeptanz" der Applikation
+  Grundsätzlich gilt: je spezifischer die Applikation, desto genauer kann der Benutzer definiert werden und desto besser kann die "User Experience" zugeschnitten werden. Und wenn die Applikation gut zugeschnitten ist, steigt auch die "Akzeptanz" der Applikation.
 
 
-  Bei einem kleinen (Experten)-Benutzerkreis kommt es zu vereinheitlichte Benutzerwünsche / Gewohnheiten. Hier in bei der Gewässerzustands-Erhebungsapplikation vom Land niederösterreich haben wir eine sehr abstrakte, symbolische Signatur im Unterschied zu den ikonischen Signaturen wie z.B. bei Estrab vorhin. Die Benutzer präferieren die maximale Unterscheidbarkeit und Benutzbarkeit im Feld bei Aufnahmen in unwegsamen Gelände anstelle einer "realitätsnahen" Darstellung
+  Bei einem kleinen (Experten)-Benutzerkreis kommt es zu vereinheitlichten Benutzerwünschen und Gewohnheiten. Hier in bei der Gewässerzustands-Erhebungsapplikation vom Land Niederösterreich haben wir eine sehr abstrakte, symbolische Signatur im Unterschied zu den ikonischen Signaturen wie z.B. vorhin bei Estrab. Die Benutzer präferieren die maximale Unterscheidbarkeit und Benutzbarkeit im Feld bei Aufnahmen in unwegsamen Gelände anstelle einer "realitätsnahen" Darstellung
 -->
 
 ---
